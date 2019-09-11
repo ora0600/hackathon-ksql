@@ -280,7 +280,7 @@ Doc checks in Control Center
  * check Streams, Tables, persistant queries
  * check connect clusters, sink and sources
 tunnel to [kibana](http://localhost:5601/app/kibana#/dashboard/atm-transactions?_g=(refreshInterval:(pause:!f,value:30000),time:(from:now-15m,mode:quick,to:now)))
-(u.U. Probleme mit Elasticsearch)
+(u.U. Probleme mit Elasticsearch wegen max open files and max virtual memory)
 ```
 ssh -i ~/keys/hackathon-temp-key.pem -N -L 5601:ip-i<Priv IP>.eu-central-1.compute.internal:5601 ec2-user@<PUBIP>
 ```
