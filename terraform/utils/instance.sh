@@ -18,7 +18,7 @@ chown ec2-user:ec2-user /home/ec2-user/software
 cd /home/ec2-user/software
 wget ${atmfrauddetectiondemo}
 unzip master.zip
-chown ec2-user:ec2-user hackathon-ksql-master/*
+chown ec2-user:ec2-user /home/ec2-user/software/hackathon-ksql-master/
 rm master.zip
 cd hackathon-ksql-master/
 rm -r terraform/*
