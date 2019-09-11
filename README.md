@@ -301,6 +301,7 @@ Additionally attendees can execute a couple of recipes
 
   * [KSQL Tumbeling Window](https://kafka-tutorials.confluent.io/create-tumbling-windows/ksql.html)
   * [KSQL Recipes](https://www.confluent.io/stream-processing-cookbook/)
+  * [Connect Integration into KSQL](https://github.com/confluentinc/ksql/blob/master/docs/tutorials/connect-integration.rst)
 
 Have fun and all the best</p>
   
