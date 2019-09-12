@@ -275,15 +275,17 @@ open Control Center in your brower http://localhost:9022
 ```
 ssh -i ~/keys/hackathon-temp-key.pem -N -L 9022:ip-<priv IP>.eu-central-1.compute.internal:9021 ec2-user@<pub IP>>
 ```
-Doc checks in Control Center 
+Checks in Control Center 
  * check topics
  * check Streams, Tables, persistant queries
  * check connect clusters, sink and sources
-tunnel to [kibana](http://localhost:5601/app/kibana#/dashboard/atm-transactions?_g=(refreshInterval:(pause:!f,value:30000),time:(from:now-15m,mode:quick,to:now)))
-(u.U. Probleme mit Elasticsearch wegen max open files and max virtual memory)
+### Kibana, Elasticsearch, Neo4j only work on local installations
+Create a tunnel to Kibana Dashboard
 ```
 ssh -i ~/keys/hackathon-temp-key.pem -N -L 5601:ip-i<Priv IP>.eu-central-1.compute.internal:5601 ec2-user@<PUBIP>
 ```
+Now tunnel to [kibana](http://localhost:5601/app/kibana#/dashboard/atm-transactions?_g=(refreshInterval:(pause:!f,value:30000),time:(from:now-15m,mode:quick,to:now)))
+
 Tunnel to [neo4j](http://localhost:7474/browser/)
 (geht nicht wegen WebSocket. Local sollte das aber gehen):
 ```
@@ -297,7 +299,7 @@ MATCH p=(n)-->() WHERE exists(n.customer_name) RETURN p LIMIT 2
 ## Confluent Cloud and KSQL, REST Proxy, Control Center (Evening)</h2>
 The creation of the AWS environment will be done by Confluent. We will bring Confluent Platform into AWS and attendees will get their own environment -  [Code and description](https://github.com/ora0600/cpe53-singlenodeonaws)
 Then one task would be to connect the Confluent Cloud Cluster with the local installation (or the AWS setup). This is described here - [Configure local Confluent Platform /Apache Kafka components to use Confluent Cloud Cluster](https://github.com/ora0600/local-Confluent-Platform2ConfluentCloud)
-Additionally attendees can execute a couple of recipes
+Additionally, attendees can execute a couple of recipes
 
   * [KSQL Tumbeling Window](https://kafka-tutorials.confluent.io/create-tumbling-windows/ksql.html)
   * [KSQL Recipes](https://www.confluent.io/stream-processing-cookbook/)
