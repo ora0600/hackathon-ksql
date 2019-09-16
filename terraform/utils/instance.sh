@@ -28,6 +28,7 @@ unzip master.zip
 chown ec2-user:ec2-user /home/ec2-user/software/hackathon-ksql-master/
 rm master.zip
 cd hackathon-ksql-master/
+chown ec2-user:ec2-user *
 rm -r terraform/*
 
 # config bash_profile for ec2-user
