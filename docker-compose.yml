@@ -169,7 +169,7 @@ services:
       - kafka-connect
       - ksql-server
     ports:
-      - "9021:9021"
+      - "80:9021"
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: 'kafka:29092'
       CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper:2181'
