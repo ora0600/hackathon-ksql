@@ -10,5 +10,6 @@ output "SSH_Tunnel" {
 }  
 
 output "C3" {
-  value = tonumber(var.instance_count) >= 1 ? "Control Center  Access: http://{join(",",formatlist("%s", aws_instance.ATMFraudDetection.*.public_ip),)} " : "Confluent Cloud Platform on AWS is disabled" 
+  value = tonumber(var.instance_count) >= 1 ? "Control Center  Access: http://${join(",",formatlist("%s", aws_instance.ATMFraudDetection.*.public_ip),)} " : "Confluent Cloud Platform on AWS is disabled" 
 }
+
