@@ -17,7 +17,14 @@ resource "aws_security_group" "atmfraud" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+# KSQL Server Port
+  ingress {
+    from_port   = 8088
+    to_port     = 8088
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  
   # outbound internet access
   egress {
     from_port   = 0
@@ -37,10 +44,12 @@ resource "aws_instance" "ATMFraudDetection" {
 
   root_block_device {
     volume_type = "gp2"
-    volume_size = 8
+    volume_size = 50
   }
 
   tags = {
-    Name = "ATMFraudDetection"
+    Name = "KSQL Hackathon",
+    owner = "youremail@confluent.io"
+
   }
 }
