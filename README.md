@@ -10,9 +10,9 @@ Hackathon for KSQL and Confluent Cloud. The idea is to play around with KSQL.
 
 ### Pre-reqs:
 
-  * A Confluent docker setup for Fraud detection is prepared and can be deployed to AWS via terraform for each attendee
-  * Attendee need only SSH tools and must be able to access Port 22 into the internet(Firewall)
-  * All GUIs are tunneled via SSH, e.g. for Control Center
+  * A Confluent docker setup for ATM Fraud detection is prepared and can be deployed to AWS via terraform for each attendee
+  * Attendee need only SSH tools and must be able to access Port 22, Port 80 and Port 8088 into the internet(Firewall)
+  * All GUIs can also be tunneled via SSH, e.g. for Control Center
 ```
 ssh -i ~/keys/your-key.pem -N -L 9022:ip-<IP private>.eu-central-1.compute.internal:9021 ec2-user@<PUBIP)
 ```
@@ -30,7 +30,7 @@ ssh -i ~/keys/your-key.pem -N -L 9022:ip-<IP private>.eu-central-1.compute.inter
 
 
 ### Pre-reqs:
-  * Attendees will get access to Confluent Cloud (API Keys), Schema Registry (API Keys) and maybe AWS evironment
+  * Attendees will get access to Confluent Cloud (API Keys), Schema Registry (API Keys) and maybe AWS environment
   * Some scripts are prepared to make the coding easier
   * Attendee need only SSH tools and must be able to access Port 22 into the internet(Firewall)
   * All attendees will get the private SSH key as well Public IP to connect the aws environment if necessary
@@ -39,13 +39,23 @@ ssh -i ~/keys/your-key.pem -N -L 9022:ip-<IP private>.eu-central-1.compute.inter
 For both time slots a kind of preparation and Hands-on is prepared. But the attendees can do what ever useful.
 
 ## ATM Fraud detection (afternoon)
-This nice solution von developed from Robin Moffat. You can follow the Blog Entry, and Sources Description from Robin or take the play book
+There is a nice solution developed from Robin Moffat. You can follow the Blog Entry, and Sources Description from Robin or take the play book
  * [Blog](https://www.confluent.io/blog/atm-fraud-detection-apache-kafka-ksql)
  * [Sources](https://github.com/confluentinc/demo-scene/tree/master/ksql-atm-fraud-detection)
 
+To run this environment manually, just deploy a working AWS compute instance via
+```
+terraform init
+terraform plan
+terraform apply
+```
 I did collect the most important statement in the following Play BooK:
-Login Information will be send to attendees
-login into Compute instance
+For the KSQL kackathon you only need to access the Control Center via http://Public-IP:80
+But you can also access directly access the compute instance. Login Information will be send to attendees
+
+### Working in the compute instance
+
+login into Compute instance:
 ```
 ssh -i ~/keys/hackathon-temp-key.pem ec2-user@<PUB IP>
 ```
@@ -63,16 +73,19 @@ Switch to the working directory
 ```
 cd /home/ec2-user/software/hackathon-ksql-master
 ```
-Bring up the complete stack
-```
-docker-compose up -d
-docker-compose ps
-```
 Launch the ksql cli
 ```
 docker-compose exec ksql-cli bash -c 'echo -e "\n\n⏳ Waiting for KSQL to be available before launching CLI\n"; while [ $(curl -s -o /dev/null -w %{http_code} http://ksql-server:8088/) -eq 000 ] ; do echo -e $(date) "KSQL Server HTTP state: " $(curl -s -o /dev/null -w %{http_code} http://ksql-server:8088/) " (waiting for 200)" ; sleep 5 ; done; ksql http://ksql-server:8088'
 ```
-in ksql exeute the following commands
+### Working with Control Center
+Go into your Browser and add the URL from terraform output
+```
+http://Public-IP:80
+```
+
+## KSQL Hackathon Playbook
+
+in ksql (in compute or Control Center) exeute the following commands
 ```
 list topics;
 PRINT 'atm_txns_gess' FROM BEGINNING;
